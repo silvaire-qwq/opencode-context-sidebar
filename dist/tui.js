@@ -170,11 +170,6 @@ function Panel(props) {
   };
   const headerLeft = () => `${headerRatio()}% used`;
   const headerRight = () => `${compact(snapshot().used)} / ${compact(snapshot().limit)}`;
-  const freePct = () => {
-    const data = snapshot();
-    if (!data || data.limit <= 0) return 0;
-    return Math.max(0, Math.round((data.limit - data.used - data.buffer) / data.limit * 100));
-  };
   return (() => {
     var _el$7 = _$createElement("box"),
       _el$8 = _$createElement("box"),
@@ -208,7 +203,7 @@ function Panel(props) {
       var _c$ = _$memo(() => !!(!open() && snapshot()));
       return () => _c$() ? (() => {
         var _el$11 = _$createElement("span");
-        _$insert(_el$11, () => ` (${freePct()}% free)`);
+        _$insert(_el$11, () => ` (${headerRatio()}% used)`);
         _$effect(_$p => _$setProp(_el$11, "style", {
           fg: theme.text.muted
         }, _$p));

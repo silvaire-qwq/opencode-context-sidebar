@@ -18,7 +18,7 @@ component with a coloured usage bar.
 
 The header shows the percentage used and `used / limit`. The bar uses the same
 colours as the rows. Click the `Context` header to collapse the panel; the
-collapsed header shows the free percentage.
+collapsed header shows the used percentage.
 
 ## How it works
 

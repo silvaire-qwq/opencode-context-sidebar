@@ -163,12 +163,6 @@ function Panel(props: {
 
   const headerLeft = () => `${headerRatio()}% used`
   const headerRight = () => `${compact(snapshot()!.used)} / ${compact(snapshot()!.limit)}`
-  const freePct = () => {
-    const data = snapshot()
-    if (!data || data.limit <= 0) return 0
-    return Math.max(0, Math.round(((data.limit - data.used - data.buffer) / data.limit) * 100))
-  }
-
   return (
     <box
       flexDirection="column"
@@ -186,7 +180,7 @@ function Panel(props: {
         queueMicrotask(update)
       }) as any}
     >
-      <box flexDirection="row" gap={1} onMouseDown={toggle}><text fg={theme.text.base}>{open() ? "▼" : "▶"}</text><text fg={theme.text.base}><b>Context</b>{!open() && snapshot() ? <span style={{ fg: theme.text.muted }}>{` (${freePct()}% free)`}</span> : null}</text></box>
+      <box flexDirection="row" gap={1} onMouseDown={toggle}><text fg={theme.text.base}>{open() ? "▼" : "▶"}</text><text fg={theme.text.base}><b>Context</b>{!open() && snapshot() ? <span style={{ fg: theme.text.muted }}>{` (${headerRatio()}% used)`}</span> : null}</text></box>
 
       {!open() ? null : (
         <>
