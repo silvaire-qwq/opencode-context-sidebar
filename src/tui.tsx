@@ -194,7 +194,7 @@ function Panel(props: {
 
           <box flexDirection="row" height={1} width="100%">
             {allocate(segments(), snapshot()!.limit, Math.max(1, width())).map((segment) => (
-              <text fg={segment.color} attributes={1}>{"▬".repeat(segment.cells)}</text>
+              <text fg={segment.color}>{"━".repeat(segment.cells)}</text>
             ))}
           </box>
 

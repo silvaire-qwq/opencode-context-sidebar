@@ -246,8 +246,7 @@ function Panel(props) {
         _$setProp(_el$16, "width", "100%");
         _$insert(_el$16, () => allocate(segments(), snapshot().limit, Math.max(1, width())).map(segment => (() => {
           var _el$17 = _$createElement("text");
-          _$setProp(_el$17, "attributes", 1);
-          _$insert(_el$17, () => "▬".repeat(segment.cells));
+          _$insert(_el$17, () => "━".repeat(segment.cells));
           _$effect(_$p => _$setProp(_el$17, "fg", segment.color, _$p));
           return _el$17;
         })()));
