@@ -38,6 +38,22 @@ const COLORS: Record<PartKey, string> = {
   messages: "#ec4899",
 }
 
+const PART_ORDER: Record<PartKey, number> = {
+  messages: 0,
+  tools: 1,
+  skills: 2,
+  system: 3,
+  mcp: 4,
+}
+
+function orderedParts<T extends { key: string }>(parts: T[]): T[] {
+  return [...parts].sort((left, right) => {
+    const leftOrder = PART_ORDER[left.key as PartKey] ?? 99
+    const rightOrder = PART_ORDER[right.key as PartKey] ?? 99
+    return leftOrder - rightOrder
+  })
+}
+
 const BUFFER_COLOR = "#9ca3af"
 const FALLBACK_WIDTH = 34
 const TOKEN_WIDTH = 8
@@ -141,7 +157,7 @@ function Panel(props: {
   const segments = () => {
     const data = snapshot()
     if (!data) return []
-    const parts = data.parts.map((part) => ({
+    const parts = orderedParts(data.parts).map((part) => ({
       tokens: part.tokens,
       color: COLORS[part.key as PartKey] ?? "#94a3b8",
     }))
@@ -198,7 +214,7 @@ function Panel(props: {
             ))}
           </box>
 
-          {snapshot()!.parts.map((part) => (
+          {orderedParts(snapshot()!.parts).map((part) => (
             <Row
               theme={theme}
               color={COLORS[part.key as PartKey] ?? "#94a3b8"}

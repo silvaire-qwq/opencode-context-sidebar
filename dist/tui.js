@@ -23,6 +23,20 @@ const COLORS = {
   skills: "#f59e0b",
   messages: "#ec4899"
 };
+const PART_ORDER = {
+  messages: 0,
+  tools: 1,
+  skills: 2,
+  system: 3,
+  mcp: 4
+};
+function orderedParts(parts) {
+  return [...parts].sort((left, right) => {
+    const leftOrder = PART_ORDER[left.key] ?? 99;
+    const rightOrder = PART_ORDER[right.key] ?? 99;
+    return leftOrder - rightOrder;
+  });
+}
 const BUFFER_COLOR = "#9ca3af";
 const FALLBACK_WIDTH = 34;
 const TOKEN_WIDTH = 8;
@@ -145,7 +159,7 @@ function Panel(props) {
   const segments = () => {
     const data = snapshot();
     if (!data) return [];
-    const parts = data.parts.map(part => ({
+    const parts = orderedParts(data.parts).map(part => ({
       tokens: part.tokens,
       color: COLORS[part.key] ?? "#94a3b8"
     }));
@@ -251,7 +265,7 @@ function Panel(props) {
           return _el$17;
         })()));
         return _el$16;
-      })(), _$memo(() => snapshot().parts.map(part => _$createComponent(Row, {
+      })(), _$memo(() => orderedParts(snapshot().parts).map(part => _$createComponent(Row, {
         theme: theme,
         get color() {
           return COLORS[part.key] ?? "#94a3b8";
