@@ -398,10 +398,23 @@ export default Plugin.define({
     const refresh = () => {
       if (timer) clearTimeout(timer);
       timer = setTimeout(() => {
-        for (const sessionID of Object.keys(cache)) ensure(sessionID);
+        for (const sessionID of Object.keys(cache)) ensure(sessionID, true);
       }, 400);
     };
-    const stops = [ctx.data.on("session.execution.succeeded", refresh), ctx.data.on("session.execution.failed", refresh), ctx.data.on("session.execution.interrupted", refresh), ctx.data.on("session.idle", refresh)];
+    let unsubscribeRpc;
+    try {
+      unsubscribeRpc = ctx.client.rpc(ContextBreakdown).events.on("updated", event => {
+        const sessionID = event.data?.sessionID;
+        if (sessionID) ensure(sessionID, true);
+      });
+    } catch {
+      // The server part may not be ready yet; session events still refresh.
+    }
+    const stops = [ctx.data.on("session.execution.succeeded", refresh), ctx.data.on("session.execution.failed", refresh), ctx.data.on("session.execution.interrupted", refresh), ctx.data.on("session.step.ended", refresh), ctx.data.on("session.idle", refresh)];
+    const tick = setInterval(() => {
+      const route = ctx.ui.router.current();
+      if (route.type === "session") ensure(route.sessionID, true);
+    }, 1500);
     const disposeSlot = ctx.ui.slot({
       prepend: "sidebar.content",
       render: ({
@@ -417,6 +430,8 @@ export default Plugin.define({
     });
     return () => {
       if (timer) clearTimeout(timer);
+      clearInterval(tick);
+      unsubscribeRpc?.();
       for (const stop of stops) stop();
       disposeSlot();
     };
