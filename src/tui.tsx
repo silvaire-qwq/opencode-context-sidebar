@@ -323,7 +323,7 @@ export default Plugin.define({
     ]
 
     const disposeSlot = ctx.ui.slot({
-      append: "sidebar.content",
+      prepend: "sidebar.content",
       render: ({ sessionID }) => (
         <Panel
           ctx={ctx}

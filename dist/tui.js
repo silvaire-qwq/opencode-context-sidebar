@@ -403,7 +403,7 @@ export default Plugin.define({
     };
     const stops = [ctx.data.on("session.execution.succeeded", refresh), ctx.data.on("session.execution.failed", refresh), ctx.data.on("session.execution.interrupted", refresh), ctx.data.on("session.idle", refresh)];
     const disposeSlot = ctx.ui.slot({
-      append: "sidebar.content",
+      prepend: "sidebar.content",
       render: ({
         sessionID
       }) => _$createComponent(Panel, {
