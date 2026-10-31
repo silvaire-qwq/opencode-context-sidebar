@@ -245,11 +245,11 @@ function Panel(props) {
         _$setProp(_el$16, "height", 1);
         _$setProp(_el$16, "width", "100%");
         _$insert(_el$16, () => allocate(segments(), snapshot().limit, Math.max(1, width())).map(segment => (() => {
-          var _el$19 = _$createElement("text");
-          _$setProp(_el$19, "attributes", 1);
-          _$insert(_el$19, () => "▬".repeat(segment.cells));
-          _$effect(_$p => _$setProp(_el$19, "fg", segment.color, _$p));
-          return _el$19;
+          var _el$17 = _$createElement("text");
+          _$setProp(_el$17, "attributes", 1);
+          _$insert(_el$17, () => "▬".repeat(segment.cells));
+          _$effect(_$p => _$setProp(_el$17, "fg", segment.color, _$p));
+          return _el$17;
         })()));
         return _el$16;
       })(), _$memo(() => snapshot().parts.map(part => _$createComponent(Row, {
@@ -288,15 +288,11 @@ function Panel(props) {
         get limit() {
           return snapshot().limit;
         }
-      }), (() => {
-        var _el$17 = _$createElement("text");
-        _$insertNode(_el$17, _$createTextNode(` `));
-        return _el$17;
-      })()] : (() => {
-        var _el$20 = _$createElement("text");
-        _$insertNode(_el$20, _$createTextNode(`Loading context…`));
-        _$effect(_$p => _$setProp(_el$20, "fg", theme.text.muted, _$p));
-        return _el$20;
+      })] : (() => {
+        var _el$18 = _$createElement("text");
+        _$insertNode(_el$18, _$createTextNode(`Loading context…`));
+        _$effect(_$p => _$setProp(_el$18, "fg", theme.text.muted, _$p));
+        return _el$18;
       })())];
     })(), null);
     _$effect(_p$ => {

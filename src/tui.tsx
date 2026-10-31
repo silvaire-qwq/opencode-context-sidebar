@@ -224,7 +224,6 @@ function Panel(props: {
             limit={snapshot()!.limit}
           />
 
-          <text> </text>
         </>
       ) : (
         <text fg={theme.text.muted}>Loading context…</text>
