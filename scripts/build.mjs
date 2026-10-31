@@ -18,7 +18,17 @@ const tui = transformFileSync(fileURLToPath(new URL("../src/tui.tsx", import.met
 })
 
 if (!tui?.code) throw new Error("Babel produced no output for src/tui.tsx")
-writeFileSync(out("tui.js"), tui.code)
+
+// Bind the compiled plugin to the host's Solid/OpenTUI runtime. Resolving a
+// local copy of either package gives the plugin its own reactive graph, so the
+// slot paints once and never repaints (opencode#39986).
+const runtime = (specifier) => `opentui:runtime-module:${encodeURIComponent(specifier)}`
+const code = tui.code
+  .replaceAll('from "@opentui/solid"', `from "${runtime("@opentui/solid")}"`)
+  .replaceAll('from "solid-js/store"', `from "${runtime("solid-js/store")}"`)
+  .replaceAll('from "solid-js"', `from "${runtime("solid-js")}"`)
+
+writeFileSync(out("tui.js"), code)
 
 // The server part is bundled so the host can resolve a plain JavaScript
 // entrypoint, while OpenCode-provided packages stay external.

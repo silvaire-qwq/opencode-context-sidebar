@@ -1,12 +1,12 @@
-import { createComponent as _$createComponent } from "@opentui/solid";
-import { memo as _$memo } from "@opentui/solid";
-import { use as _$use } from "@opentui/solid";
-import { effect as _$effect } from "@opentui/solid";
-import { insert as _$insert } from "@opentui/solid";
-import { createTextNode as _$createTextNode } from "@opentui/solid";
-import { insertNode as _$insertNode } from "@opentui/solid";
-import { setProp as _$setProp } from "@opentui/solid";
-import { createElement as _$createElement } from "@opentui/solid";
+import { createComponent as _$createComponent } from "opentui:runtime-module:%40opentui%2Fsolid";
+import { memo as _$memo } from "opentui:runtime-module:%40opentui%2Fsolid";
+import { use as _$use } from "opentui:runtime-module:%40opentui%2Fsolid";
+import { effect as _$effect } from "opentui:runtime-module:%40opentui%2Fsolid";
+import { insert as _$insert } from "opentui:runtime-module:%40opentui%2Fsolid";
+import { createTextNode as _$createTextNode } from "opentui:runtime-module:%40opentui%2Fsolid";
+import { insertNode as _$insertNode } from "opentui:runtime-module:%40opentui%2Fsolid";
+import { setProp as _$setProp } from "opentui:runtime-module:%40opentui%2Fsolid";
+import { createElement as _$createElement } from "opentui:runtime-module:%40opentui%2Fsolid";
 import { Plugin } from "@opencode/plugin/tui";
 import { ContextBreakdown } from "../rpc.js";
 const LABELS = {
